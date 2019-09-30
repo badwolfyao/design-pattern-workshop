@@ -1,9 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <RootNamespace>creational_design_patterns</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="AbstractFactory\" />
+    <Folder Include="Builder\" />
+    <Folder Include="FactoryMethod\" />
+    <Folder Include="Prototype\" />
+  </ItemGroup>
 
 </Project>
