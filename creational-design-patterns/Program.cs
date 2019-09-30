@@ -1,5 +1,6 @@
 ﻿using creational_design_patterns.AbstractFactory.Factories;
 using creational_design_patterns.AbstractFactory.Models;
+using creational_design_patterns.Builder;
 using creational_design_patterns.Singleton;
 using System;
 
@@ -22,6 +23,22 @@ namespace creational_design_patterns
             CreateHeadlight(carModel);
 
             #endregion Abstract Factory
+
+            #region Builder
+
+            Console.WriteLine("Builder".PadLeft(50, '-').PadRight(100, '-'));
+
+            Client client = new Client();
+
+            Car dodge = client.OrderDodgeCar();
+
+            Car ford = client.OrderFordCar();
+
+            Console.WriteLine($"Client ordered a {ford.Name} car, and has color={ford.Color}, doorCount={ford.DoorCount} and switchtype={ford.Switch}.");
+
+            Console.WriteLine($"Client ordered a {dodge.Name} car, and has color={dodge.Color}, doorCount={dodge.DoorCount} and switchtype={dodge.Switch}.");
+
+            #endregion Builder
 
             #region Singleton
 
