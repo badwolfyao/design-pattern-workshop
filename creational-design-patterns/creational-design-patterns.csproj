@@ -6,9 +6,4 @@
     <RootNamespace>creational_design_patterns</RootNamespace>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="FactoryMethod\" />
-    <Folder Include="Prototype\" />
-  </ItemGroup>
-
 </Project>

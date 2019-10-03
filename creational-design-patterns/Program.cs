@@ -1,8 +1,11 @@
 ﻿using creational_design_patterns.AbstractFactory.Factories;
 using creational_design_patterns.AbstractFactory.Models;
 using creational_design_patterns.Builder;
+using creational_design_patterns.FactoryMethod;
+using creational_design_patterns.Prototype;
 using creational_design_patterns.Singleton;
 using System;
+using System.Collections.Generic;
 
 namespace creational_design_patterns
 {
@@ -30,15 +33,36 @@ namespace creational_design_patterns
 
             Client client = new Client();
 
-            Car dodge = client.OrderDodgeCar();
+            Builder.Car dodge = client.OrderDodgeCar();
 
-            Car ford = client.OrderFordCar();
+            Builder.Car ford = client.OrderFordCar();
 
             Console.WriteLine($"Client ordered a {ford.Name} car, and has color={ford.Color}, doorCount={ford.DoorCount} and switchtype={ford.Switch}.");
 
             Console.WriteLine($"Client ordered a {dodge.Name} car, and has color={dodge.Color}, doorCount={dodge.DoorCount} and switchtype={dodge.Switch}.");
 
             #endregion Builder
+
+            #region Factory Method
+
+            Console.WriteLine("Factory Method".PadLeft(50, '-').PadRight(100, '-'));
+
+            Shape circle = CreateShape("circle");
+            Shape squre = CreateShape("square");
+
+            Console.WriteLine($"Shape Name for circle is {circle.ShapeName}");
+            Console.WriteLine($"Shape Name for square is {squre.ShapeName}");
+
+
+            #endregion Factory Method
+
+            #region Prototype
+
+            Console.WriteLine("Prototype".PadLeft(50, '-').PadRight(100, '-'));
+
+            CreateFordCars();
+
+            #endregion Prototype
 
             #region Singleton
 
@@ -119,6 +143,46 @@ namespace creational_design_patterns
             Headlight headlight = carFactory.CreateHeadlight();
 
             Console.WriteLine($"Created Headlight and the name = {headlight.Name}");
+        }
+
+        static Shape CreateShape(string shapeName)
+        {
+            IShapeFactory shapeFactory = null;
+            switch(shapeName)
+            {
+                case "circle":
+                    shapeFactory = new CircileFactory();
+                    break;
+                case "square":
+                    shapeFactory = new SquareFactory();
+                    break;
+                default:
+                    break;
+            }
+
+            return shapeFactory.CreateShape();
+        }
+
+        static void CreateFordCars()
+        {
+            FordCar fordCar = new FordCar();
+            fordCar.Name = "Ford Car Prototype";
+            fordCar.Make = "FUSION";
+
+            CarMaker carMaker = new CarMaker(fordCar);
+            List<FordCar> fordCars = new List<FordCar>();
+            for(int i = 0; i < 5; i++)
+            {
+                FordCar newFordCar = (FordCar) carMaker.MakeCar();
+                newFordCar.Name = newFordCar.Name.Replace("Prototype", $"No.{i + 1}");
+                fordCars.Add(newFordCar);
+            }
+
+            foreach(var car in fordCars)
+            {
+                Console.WriteLine($"Made {car.Name} with ID = {car.ID}");
+            }
+
         }
     }
 }
